@@ -1,0 +1,50 @@
+.hidden {
+  display: none !important;
+}
+
+.header .title {
+  text-align: center;
+}
+.name-form {
+  text-align: center;
+}
+
+.game-area {
+  justify-content: center;
+}
+
+.game-area .box {
+  border: 1px solid black;
+  margin: 10px;
+  height: 150px;
+  width: 100%;
+}
+
+.game-area .p1-box {
+
+}
+.game-area .result-box {
+
+}
+.game-area .p2-box {
+
+}
+
+.chat-area {
+  justify-content: center;
+}
+.chat span {
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.chat-area .chat-box {
+  border: 1px solid red;
+  height: 200px;
+  overflow: scroll;
+  width: 100%;
+}
+
+.chat-input {
+  width: 80%;
+}
