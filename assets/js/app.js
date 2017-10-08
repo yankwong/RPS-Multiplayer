@@ -2,9 +2,12 @@ var YTK = YTK || {};
 
 YTK.rps = (function() {
   var 
+  database = firebase.database(),
   gameObj = {
     name : '',
-    startTime : ''
+    startTime : '',
+    choice: '',
+    refID: '',
   },
   initGameObj = function($nameTxtBox) {
     setPlayerName($nameTxtBox);
@@ -57,7 +60,7 @@ YTK.rps = (function() {
 
       if (chatContent !== '') {
         
-        YTK.db.dbPush('chat', {
+        YTK.db.dbPush('/chat', {
           user : gameObj.name, 
           chat : chatContent,
           time : firebase.database.ServerValue.TIMESTAMP
@@ -89,17 +92,86 @@ YTK.rps = (function() {
     }
   },
   startGame = function() {
+    // connect to DB, setup user ID
+    database.ref().once('value', function(snapshot) {
+      var hasPlayer1 = snapshot.hasChild('0'),
+          hasPlayer2 = snapshot.hasChild('1');
+
+      console.log('value result', snapshot.val(), hasPlayer1, hasPlayer2);
+      if (hasPlayer1 && hasPlayer2) {
+        // can't join game
+        console.log('game full');
+      }
+      else if (!hasPlayer1) {
+        // you are player 1
+        console.log('u r player 1');
+        database.ref('/0').push(gameObj);
+        gameObj.refID = '/0';
+      }
+      else {
+        // you are player 2
+        console.log('u r player 2');
+        database.ref('/1').push(gameObj);
+        gameObj.refID = '/1';
+      }
+    });
+
     hideDiv($('.name-form'));
     initGreeting();
     showDiv($('.greeting'));
+
+    // setup RPS buttons
+    bindOptionBtns();
+
+    // setup Chat
     enableChat();
-    YTK.db.dbBind('chat', 'child_added', function(snapshot) {
+    YTK.db.dbBind('/chat', 'child_added', function(snapshot) {
       putChat(snapshot.val());
     });
   },
+  setChoice = function(choice) {
+    gameObj.choice = choice;
+  },
+  bindOptionBtns = function() {
+    var $optBtns = $('.opt-btn');
+
+    $optBtns.on('click', function() {
+      var $this   = $(this),
+          option  = $(this).attr('data-option');
+
+      if (!$this.hasClass('disabled')) {
+        $optBtns.addClass('disabled');
+        $this.addClass('picked');
+        setChoice(option);  
+
+
+        // push player's choice to DB
+        // 
+      }
+    });
+  },
+
   initPage = function() { // function to call on page load
+    
+    $(window).bind("beforeunload", function() {
+
+      if (gameObj.refID !== '') {
+        database.ref(gameObj.refID).remove();
+
+        // push to chat  
+        YTK.db.dbPush('/chat', {
+          user : 'System', 
+          chat : gameObj.name + ' has left the game',
+          time : firebase.database.ServerValue.TIMESTAMP
+        });
+      }
+      
+      return undefined;
+    });
+
     bindStartBtn();
     bindChatSubmitBtn();
+
   };
 
   return {
