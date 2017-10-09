@@ -235,10 +235,8 @@ YTK.rps = (function() {
       // start listening to the other player's DB movement
       setupValueListener();
 
-      // setup RPS buttons
       bindOptionBtns();
 
-      // setup Chat
       enableChat();
       YTK.db.dbBind('/chat', 'child_added', function(snapshot) {
         putChat(snapshot.val());
@@ -265,7 +263,10 @@ YTK.rps = (function() {
       }
     });
   },
-
+  putSystemMessage = function(message) {
+    $systemBox = $('.message', '.system-box');
+    $systemBox.html(message);
+  },
   setupValueListener = function() {
     database.ref().on('value', function(snapshot) {
       var hasPlayer1 = snapshot.hasChild('0'),
@@ -273,6 +274,7 @@ YTK.rps = (function() {
           dbData = snapshot.val();
 
       if (hasPlayer1 && hasPlayer2) {
+        putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Someone joined the game')
         if (gameObj.choice !== '' && dbData[gameObj.otherRefID].choice !== '' && gameReady) {
           enemyObj = dbData[gameObj.otherRefID];
           gameReady = false;
@@ -281,8 +283,18 @@ YTK.rps = (function() {
           displayScore();
           resetOptionBtns();
         }
+        else if (gameObj.choice !== '' && gameReady) {
+          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Waiting for them to pick')
+        }
+        else if (dbData[gameObj.otherRefID].choice !== '' && gameReady) {
+          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Your turn, pick something!')
+        }
+        else if (gameObj.choice == '' && dbData[gameObj.otherRefID].choice == '') {
+          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Noone picked anything yet')  
+        }
       }
       else {
+        putSystemMessage('<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> waiting for a player 2')
         console.log('resetting enemyObj to {}');
         enemyObj = {};
       }
@@ -305,12 +317,18 @@ YTK.rps = (function() {
       return undefined;
     });
   },
+  bindClearBtn = function() {
+    $('.clear-btn').on('click', function() {
+      $('.chat-box').html('');
+    });
+  },
   initPage = function() {
     
     bindDisconnect();
     bindStartBtn();
     bindChatSubmitBtn();
-
+    bindClearBtn();
+    
   };
 
   return {

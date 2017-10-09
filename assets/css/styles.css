@@ -36,6 +36,10 @@ sup {
 }
 .name-form {
   text-align: center;
+  margin: 20px;
+  justify-content: center;
+  text-align: center;
+  display: flex;
 }
 
 .game-area {
@@ -52,13 +56,15 @@ sup {
 .game-area .p1-box {
 
 }
-.game-area .result-box {
-
+.game-area .system-box {
+  font-size: 12px;
 }
 .game-area .p2-box {
 
 }
-
+.game-area .system-box .message {
+  margin-top: 20px;
+}
 .control {
   text-align: center;
   font-size: 40px;
@@ -69,11 +75,39 @@ sup {
   margin: 20px 10px;
   cursor: pointer;
 }
-
+.rage-title {
+  font-size: 20px;
+}
+.clear-btn {
+  float: right;
+  font-size: 12px;
+  padding: .2rem .5rem;
+}
+.chat-control {
+  margin: 5px 0;
+}
+.chat-input {
+  width: 100%;
+  margin-bottom: 5px;
+}
+@media (min-width: 768px) {
+  .chat-input {
+    width: 90%;
+  }
+}
+.chat-submit {
+  font-size: 12px;
+  padding: .4rem .5rem; 
+  float: none;
+}
+@media (min-width: 768px) {
+  .chat-submit {
+    float: right;
+  }
+}
 .control .fa:hover{
   color: gold;
   font-weight: bold;
-  font-size: 50px; 
 }
 .control .fa.disabled {
   color: silver;
@@ -87,14 +121,16 @@ sup {
 .control .fa.picked.disabled:hover {
   color: gold;
   font-weight: bold;
-  font-size: 50px;
 }
 .control .fa.picked {
   color: gold;
   font-weight: bold;
   font-size: 50px;
 }
-
+.start-btn {
+  padding: .4rem .5rem;
+  margin-left: 10px;
+}
 .chat-area {
   justify-content: center;
 }
@@ -104,12 +140,8 @@ sup {
 }
 
 .chat-area .chat-box {
-  border: 1px solid red;
+  border: 1px solid black;
   height: 200px;
   overflow: scroll;
   width: 100%;
-}
-
-.chat-input {
-  width: 80%;
 }
