@@ -15,9 +15,9 @@
 
   <body>
   
-  <div class="container">
+  <div class="container-fluid">
     <div class="row header">
-      <div class="col-12 title"><h1>Rock Paper Scissors</h1></div>
+      <div class="col-12 title"><h1>RPS<sup>toxic</sup></h1></div>
     </div>
     <div class="row name">
       <div class="col-12 message-area">
@@ -25,13 +25,27 @@
           <input type="text" placeholder="Name" class="player-name" name="player-name">
           <button class="btn btn-primary start-btn">Start</button>
         </div>
-        <div class="greeting hidden"><p class="message"'"></p></div>
+        <div class="greeting hidden"><p class="message"></p></div>
       </div>
     </div>
     <div class="row game-area">
-      <div class="col-3 box p1-box"></div>
+      <div class="col-3 box p1-box">
+      <h5 class="player-title">YOU</h5>  
+        <div class="score-board p1-score">
+          <i class="fa fa-smile-o" aria-hidden="true"></i><span class="win">0</span>
+          <i class="fa fa-frown-o" aria-hidden="true"></i><span class="lose">0</span>
+          <i class="fa fa-meh-o" aria-hidden="true"></i><span class="draw">0</span>
+        </div>
+      </div>
       <div class="col-3 box result-box"></div>
-      <div class="col-3 box p2-box"></div>
+      <div class="col-3 box p2-box">
+        <h5 class="player-title">THEM</h5>  
+        <div class="score-board p2-score">
+          <i class="fa fa-smile-o" aria-hidden="true"></i><span class="win">0</span>
+          <i class="fa fa-frown-o" aria-hidden="true"></i><span class="lose">0</span>
+          <i class="fa fa-meh-o" aria-hidden="true"></i><span class="draw">0</span>
+        </div>
+      </div>
       <div class="col-12 control">
         <i class="opt-btn fa fa-hand-rock-o" data-option="R" aria-hidden="true"></i>
         <i class="opt-btn fa fa-hand-paper-o" data-option="P" aria-hidden="true"></i>
@@ -39,7 +53,7 @@
       </div>
     </div>
     <div class="row chat-area">
-      <div class="col-8">
+      <div class="col-10">
         <div class="chat-box"></div>
         <input type="text" disabled name="chat-input" class="chat-input">
         <button class="btn btn-primary chat-submit">Submit</button>

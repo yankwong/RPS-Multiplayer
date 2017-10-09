@@ -10,13 +10,17 @@ YTK.db = (function() {
   dbRemoveItem = function(key) {
     database.ref().child(key).remove();
   },
-  dbBindEvent = function(table, event, callback) {
+  dbBindListener = function(table, event, callback) {
     database.ref(table).on(event, callback);
+  },
+  dbSet = function(node, obj) {
+    database.ref('/' + node).set(obj);
   };
 
   return {
     dbPush        : dbPush,
     dbRemoveItem  : dbRemoveItem,
-    dbBind        : dbBindEvent
+    dbBind        : dbBindListener,
+    dbSet         : dbSet
   }
 })();

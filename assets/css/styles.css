@@ -1,8 +1,37 @@
 .hidden {
   display: none !important;
 }
-
+sup {
+  top: -1.5em;
+  font-size: 40%;
+}
 .header .title {
+  text-align: center;
+  background: dimgrey;
+  color: white;
+  padding: 5px;
+}
+.score-board {
+  font-size: 20px;
+}
+.score-board span {
+  padding: 5px;
+}
+.win {
+  color: green;
+}
+.lose {
+  color: red;
+}
+.draw {
+  color: grey;
+}
+.player-title {
+  margin-top: 20px;
+}
+.message-area .greeting,
+.message-area .name-form {
+  margin: 20px;
   text-align: center;
 }
 .name-form {
@@ -41,19 +70,29 @@
   cursor: pointer;
 }
 
-.control .fa:hover,
-.control .fa.picked.disabled:hover,
-.control .fa.picked {
+.control .fa:hover{
   color: gold;
   font-weight: bold;
-  font-size: 60px;
+  font-size: 50px; 
 }
-
+.control .fa.disabled {
+  color: silver;
+}
 .control .fa.disabled:hover {
-  color: black;
+  color: silver;
   font-weight: normal;
   font-size: 40px;
   cursor: default;
+}
+.control .fa.picked.disabled:hover {
+  color: gold;
+  font-weight: bold;
+  font-size: 50px;
+}
+.control .fa.picked {
+  color: gold;
+  font-weight: bold;
+  font-size: 50px;
 }
 
 .chat-area {
