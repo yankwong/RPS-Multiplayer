@@ -211,7 +211,7 @@ YTK.rps = (function() {
           hasPlayer2 = snapshot.hasChild('1');
 
       if (hasPlayer1 && hasPlayer2) {
-        console.log('game full');
+        putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Game is full, check back later!')
         return false;
       }
 
@@ -267,6 +267,15 @@ YTK.rps = (function() {
     $systemBox = $('.message', '.system-box');
     $systemBox.html(message);
   },
+  updateEnemyScore = function(obj){
+    var $p2Win  = $('.win', '.p2-score'),
+        $p2Lose = $('.lose', '.p2-score'),
+        $p2Draw = $('.draw', '.p2-score');
+
+    $p2Win.html(obj.win);
+    $p2Lose.html(obj.lose);
+    $p2Draw.html(obj.draw);
+  },
   setupValueListener = function() {
     database.ref().on('value', function(snapshot) {
       var hasPlayer1 = snapshot.hasChild('0'),
@@ -274,7 +283,7 @@ YTK.rps = (function() {
           dbData = snapshot.val();
 
       if (hasPlayer1 && hasPlayer2) {
-        putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Someone joined the game')
+        updateEnemyScore(dbData[gameObj.otherRefID]);
         if (gameObj.choice !== '' && dbData[gameObj.otherRefID].choice !== '' && gameReady) {
           enemyObj = dbData[gameObj.otherRefID];
           gameReady = false;
@@ -328,7 +337,7 @@ YTK.rps = (function() {
     bindStartBtn();
     bindChatSubmitBtn();
     bindClearBtn();
-    
+
   };
 
   return {
