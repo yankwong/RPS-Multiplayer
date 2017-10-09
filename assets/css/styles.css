@@ -131,12 +131,16 @@ sup {
   padding: .4rem .5rem;
   margin-left: 10px;
 }
+.chat-box {
+  padding: 0 10px;
+}
+
 .chat-area {
   justify-content: center;
 }
 .chat span {
   font-size: 10px;
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .chat-area .chat-box {

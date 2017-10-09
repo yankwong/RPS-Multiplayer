@@ -240,6 +240,7 @@ YTK.rps = (function() {
       enableChat();
       YTK.db.dbBind('/chat', 'child_added', function(snapshot) {
         putChat(snapshot.val());
+        $(".chat-box").stop().animate({ scrollTop: $(".chat-box")[0].scrollHeight}, 1000);
       });
     });
   },
