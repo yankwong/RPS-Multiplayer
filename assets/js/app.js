@@ -288,7 +288,7 @@ YTK.rps = (function() {
         if (gameObj.choice !== '' && dbData[gameObj.otherRefID].choice !== '' && gameReady) {
           enemyObj = dbData[gameObj.otherRefID];
           gameReady = false;
-          console.log('calculate who won!', enemyObj);
+          // console.log('calculate who won!', enemyObj);
           checkWinLose(enemyObj.choice);
           displayScore();
           resetOptionBtns();
@@ -305,7 +305,7 @@ YTK.rps = (function() {
       }
       else {
         putSystemMessage('<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> waiting for a player 2')
-        console.log('resetting enemyObj to {}');
+        // console.log('resetting enemyObj to {}');
         enemyObj = {};
       }
     });
