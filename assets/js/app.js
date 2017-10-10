@@ -21,6 +21,16 @@ YTK.rps = (function() {
     "GL, show no mercy!",
     "Victory at all cost! Cheating is ok"
   ],
+  rageWords = [
+    "BLHF Noobz",
+    "Rock or GTFO",
+    "Paper or GTFO",
+    "Scissor or GTFO",
+    "lolz cry more",
+    "Reporting you for feeding",
+    "bro u weak",
+    "feed more"
+  ],
   getRandomInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
@@ -203,7 +213,18 @@ YTK.rps = (function() {
         winGame();
       }
     }
-  }
+  },
+  bindRageBtn = function() {
+    var $rageBtn = $('.rage-btn');
+
+    $rageBtn.on('click', function() {
+      YTK.db.dbPush('/chat', {
+          user : gameObj.name, 
+          chat : rageWords[getRandomInt(0, 7)],
+          time : firebase.database.ServerValue.TIMESTAMP
+        });
+    });
+  },
   startGame = function() {
     // connect to DB, setup user ID
     database.ref().once('value', function(snapshot) {
@@ -238,6 +259,8 @@ YTK.rps = (function() {
       bindOptionBtns();
 
       enableChat();
+
+      bindRageBtn();
       YTK.db.dbBind('/chat', 'child_added', function(snapshot) {
         putChat(snapshot.val());
         $(".chat-box").stop().animate({ scrollTop: $(".chat-box")[0].scrollHeight}, 1000);
@@ -294,17 +317,17 @@ YTK.rps = (function() {
           resetOptionBtns();
         }
         else if (gameObj.choice !== '' && gameReady) {
-          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Waiting for them to pick')
+          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Waiting for them to pick');
         }
         else if (dbData[gameObj.otherRefID].choice !== '' && gameReady) {
-          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Your turn, pick something!')
+          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Your turn, pick something!');
         }
         else if (gameObj.choice == '' && dbData[gameObj.otherRefID].choice == '') {
-          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Noone picked anything yet')  
+          putSystemMessage('<i class="fa fa-info" aria-hidden="true"></i> Ready, Set, RPS!!');
         }
       }
       else {
-        putSystemMessage('<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> waiting for a player 2')
+        putSystemMessage('<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> waiting for a player 2');
         // console.log('resetting enemyObj to {}');
         enemyObj = {};
       }

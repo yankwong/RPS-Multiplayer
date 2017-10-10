@@ -1,3 +1,11 @@
+body {
+  /*background-image: url('../images/background.gif');*/
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 100vh;
+}
 .hidden {
   display: none !important;
 }
@@ -27,7 +35,7 @@ sup {
   color: grey;
 }
 .player-title {
-  margin-top: 20px;
+  margin-top: 12px;
 }
 .message-area .greeting,
 .message-area .name-form {
@@ -54,20 +62,20 @@ sup {
 }
 
 .game-area .p1-box {
-
+  border: 3px dotted green;
 }
 .game-area .system-box {
   font-size: 12px;
 }
 .game-area .p2-box {
-
+  border: 3px dotted red;
 }
 .game-area .system-box .message {
   margin-top: 20px;
 }
 .control {
   text-align: center;
-  font-size: 40px;
+  font-size: 60px;
   margin: 40px;
   min-height: 100px;
 }
@@ -78,10 +86,13 @@ sup {
 .rage-title {
   font-size: 20px;
 }
-.clear-btn {
+.rage-btn, .clear-btn {
   float: right;
   font-size: 12px;
   padding: .2rem .5rem;
+}
+.clear-btn {
+  margin-left: 5px;
 }
 .chat-control {
   margin: 5px 0;
@@ -114,8 +125,7 @@ sup {
 }
 .control .fa.disabled:hover {
   color: silver;
-  font-weight: normal;
-  font-size: 40px;
+  font-weight: normal;  
   cursor: default;
 }
 .control .fa.picked.disabled:hover {
@@ -125,7 +135,6 @@ sup {
 .control .fa.picked {
   color: gold;
   font-weight: bold;
-  font-size: 50px;
 }
 .start-btn {
   padding: .4rem .5rem;
@@ -133,6 +142,7 @@ sup {
 }
 .chat-box {
   padding: 0 10px;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .chat-area {
